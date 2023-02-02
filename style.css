@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.type-grass {
+    background-color: #9BCC50;
+}
+
+.type-water {
+    background-color: #4592C4;
+}
+
+.type-fire {
+    background-color: #FD7D24;
+}
+
+.type-bug {
+    background-color: #729F3F;
+}
+
+.type-normal {
+    background-color: #A4ACAF;
+}
+
+.type-poison {
+    background-color: #B87FC8;
+}
+
+.type-electric {
+    background-color: rgb(247, 208, 44);
+}
+
+.type-fairy {
+    background-color: rgb(214, 133, 173);
+}
+
+.type-ground {
+    background-color: #EED535;
+}
+
+.type-fighting {
+    background-color: #D56723;
+}
+
+.type-psychic {
+    background-color: #F366B9;
+}
+
+.type-rock {
+    background-color: #A38C21;
+}
+
+.type-ghost {
+    background-color: #7B62A3;
+}
+
+.type-ice {
+    background-color: #51C4E7;
+}
+
+.type-dragon {
+    background-color: #2e5764;
+}
+
+body {
+    font-family: 'Oswald';
+    background-color: black;
+}
+
+header {
+    background-color: #747576;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bungee Inline' !important;
+}
+
+.title {
+    font-size: 128px;
+    margin: -100px 32px;
+}
+
+.logo-container {
+    width: 140px;
+    height: 140px;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#pokedex {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px;
+    position: relative;
+}
+
+.pokemon-card {
+    text-align: center;
+    margin: 8px;
+    border-radius: 12px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 175ms ease-in-out;
+}
+
+.pokemon-card:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 175ms ease-in-out;
+}
+
+.pokemon-name {
+    font-size: 30px;
+    color: white;
+}
+
+.pokemon-type {
+    color: white;
+    font-size: 22px;
+    padding: 4px 16px;
+    margin: 16px 4px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.pokemon-type-container {
+    display: flex;
+}
+
+.pokemon-img-container {
+    width: 250px;
+    height: 250px;
+    padding: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+}
+
+#details-container {
+    width: 500px;
+    height: 500px;
+    position: sticky;
+    top: 100px;
+    border: 1px solid rgb(255, 255, 255);
+}
