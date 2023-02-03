@@ -144,6 +144,9 @@ header {
     padding: 40px;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .pokemon-img {
@@ -166,8 +169,54 @@ header {
 
 #details-container {
     width: 500px;
-    height: 500px;
+    height: 700px;
     position: sticky;
-    top: 100px;
-    border: 1px solid rgb(255, 255, 255);
+    top: 50px;
+}
+
+.pokemon-card-detail {
+    text-align: center;
+    margin: 8px;
+    border-radius: 12px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-container {
+    display: flex;
+
+    justify-content: space-between;
+    margin: 8px;
+    font-size: 20px;
+}
+
+.stat {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 200px;
+    border-radius: 16px;
+    margin-left: 20px;
+}
+
+.stat-bar {
+    color: white;
+    background-color:rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+}
+
+.previous-pokemon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    margin-right: 70px;
+    font-size: 40px;
+    border-radius: 50%;
+    background-color:rgba(0, 0, 0, 0.4);
+}
+
+.next-pokemon {
+    margin-left: 70px;
+    font-size: 40px;
 }
