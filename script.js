@@ -3,6 +3,7 @@ let currentPokemon
 let pokemonArray = []
 let pokemonAmount = 26
 let renderedPokemon = 1
+let totalPokemonsShown = 26 //150
 
 
 async function init() {
@@ -15,7 +16,7 @@ async function init() {
             pokemonArray.push(pokemonNames.name)
         }
     }
-    if (pokemonAmount < 26) { //150
+    if (pokemonAmount < totalPokemonsShown) {
         pokemonAmount += 25
         init()
     }
@@ -121,18 +122,62 @@ function renderPokemon(pokemon) {
     <div class="pokemon-card-detail" id="detailed-pokemon-${pokemon.id}">
         <div class="pokemon-name">#${pokemon.id.toString().padStart(3, '0')} <b>${strToUpperCase}</b></div>
         <div class="pokemon-type-container" id="detailed-pokemon-type-${pokemon.id}"></div>
-        <div class="pokemon-img-container">
-            <div class="previous-pokemon"><img src="${img/nachster.png}"></div>
-            <img class="pokemon-img" src="${pokemon.sprites.other.dream_world.front_default}">
-            <div class="next-pokemon"><div>></div></div>
+        <div class="img-section">
+            <div class="arrow-container"><img onclick="previousPokemon(${pokemon.id} - 1)" class="arrow-previous" src="./img/nachster.png"></div>
+                <div class="pokemon-img-container">
+                    <img class="pokemon-img" src="${pokemon.sprites.other.dream_world.front_default}">
+                </div>
+            <div class="arrow-container"><img onclick="nextPokemon(${pokemon.id} + 1)" class="arrow-next" src="./img/nachster.png"></div>
         </div>
-        <div id="pokemon-stats"></div>
+        <div class="stats-section">
+        <div class="arrow-container small"><img onclick="changeStats(${pokemon.id} - 1)" class="arrow-previous" src="./img/nachster.png"></div>
+            <div id="pokemon-stats">
+                <div id="stats-container"></div>
+                <div id="abilities-container" class="d-none"></div>
+                <div id="general-info-container"></div>
+            </div>
+            <div class="arrow-container small"><img onclick="changeStats(${pokemon.id} + 1)" class="arrow-next" src="./img/nachster.png"></div>
+        <div>
     </div>
     `
     renderPokemonType(pokemon)
     renderPokemonBackgroundColor(pokemon)
     renderPokemonStats(pokemon)
 }
+
+
+function changeStats(pokemonID) {
+    let stats = document.getElementById('stats-container')
+    let abilities = document.getElementById('abilities-container')
+    if (!stats.classList.contains('d-none')) {
+        console.log("test")
+        stats.classList.add('d-none')
+        abilities.classList.remove('d-none')
+    }
+}
+
+
+function previousPokemon(pokemonID) {
+    console.log(pokemonID)
+    if (pokemonID == 0) {
+        pokemonID = totalPokemonsShown
+        showPokemon(pokemonID)
+    } else {
+        showPokemon(pokemonID)
+    }
+
+}
+
+
+function nextPokemon(pokemonID) {
+    if (pokemonID == totalPokemonsShown + 1) {
+        pokemonID = 1
+        showPokemon(pokemonID)
+    } else {
+        showPokemon(pokemonID)
+    }
+}
+
 
 function renderPokemonBackgroundColor(pokemon) {
     let content = document.getElementById(`detailed-pokemon-${pokemon.id}`)
@@ -181,18 +226,43 @@ function renderPokemonType(pokemon) {
 
 
 function renderPokemonStats(pokemon) {
-    let content = document.getElementById('pokemon-stats')
+    let statsContainer = document.getElementById('stats-container')
     for (let i = 0; i < pokemon.stats.length; i++) {
         let str = pokemon.stats[i].stat.name
         let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
         statBarWidth = (pokemon.stats[i].base_stat / 200) * 100
-        content.innerHTML += /*html*/ `
-        <div class="stat-container">
-            <div class="stat-name">${strToUpperCase}</div>
-            <div class="stat"> <div class="stat-bar" style="width:${statBarWidth}%">${pokemon.stats[i].base_stat}</div></div>
-        </div>
+        statsContainer.innerHTML += /*html*/ `
+            <div class="stat-container">
+                <div class="stat-name">${strToUpperCase}</div>
+                <div class="stat"> <div class="stat-bar" style="width:${statBarWidth}%">${pokemon.stats[i].base_stat}</div></div>
+            </div>
     `
     }
+    let abilitiesContainer = document.getElementById('abilities-container')
+    for (let i = 0; i < pokemon.abilities.length; i++) {
+        let str = pokemon.abilities[i].ability.name
+        let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
+        abilitiesContainer.innerHTML += /*html*/ `
+            <div class="abilities-container">
+                <div class="stat"> <div class="stat-bar">${strToUpperCase}</div></div>
+            </div>
+    `
+    }
+    let generalInfoContainer = document.getElementById('general-info-container')
+    expBarWidth = (pokemon.base_experience / 400) * 100
+    heightBarWidth = (pokemon.height / 25) * 100
+    generalInfoContainer.innerHTML += /*html*/ `
+            <div class="general-info-container">
+                <div class="stat-container">
+                    <div class="stat-name">Base-Experience</div>
+                    <div class="stat"> <div class="stat-bar" style="width:${expBarWidth}%">${pokemon.base_experience}</div></div>
+                </div> 
+                <div class="stat-container">
+                    <div class="stat-name">Height</div>
+                    <div class="stat"> <div class="stat-bar" style="width:${heightBarWidth}%">${pokemon.height}</div></div>
+                </div> 
+            </div>
+    `
 
 }
 
