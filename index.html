@@ -9,24 +9,35 @@
     <link rel="icon" type="image/x-icon" href="./img/pokeball.png">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./font.css">
+    <script src="./backgroundColour.js"></script>
     <script src="./script.js"></script>
+    <script src="./renderHtml.js"></script>
 </head>
 
-<body onload="init()">
+<body id="body" onload="init()">
     <header>
-        <a href="https://www.flaticon.com/de/kostenlose-icons/nachster" title="nachster Icons">Nachster Icons erstellt von Kiranshastry - Flaticon</a>
         <div class="logo-container"><img class="logo" src="./img/pokeball.png"></div>
         <div>
-            <p class="title">PokeDex</p>
+            <p class="title">Pokedex</p>
+        </div>
+        <div>
+            <input onkeyup="searchPokemon()" id="user-search" type="text" placeholder="Search ...">
         </div>
     </header>
-    <div id="pokedex">
+   
+    <div class="relative">
         <div onclick="hideDetails()" class=" d-none" id="overlay">
             <div onclick="dontClose(event)" id="details-container"></div>
         </div>
-
+        <div id="pokedex"></div>
     </div>
-
+    
+        
+    </div>
+<footer>
+    <div><a href="https://www.flaticon.com/de/kostenlose-icons/nachster" title="nachster Icons">Nachster Icons erstellt von Kiranshastry - Flaticon</a>
+    </div>
+</footer>
 </body>
 
 </html>
