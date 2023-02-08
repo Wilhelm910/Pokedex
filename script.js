@@ -20,11 +20,15 @@ async function init() {
 
 
 window.onscroll = function () {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        renderedPokemon = pokemonAmount + 1
-        pokemonAmount += 20
-        init()
+    console.log(searchValueName.length)
+    if (searchValueName.length == 0) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            renderedPokemon = pokemonAmount + 1
+            pokemonAmount += 5
+            init()
+        }
     }
+
 }
 
 
@@ -53,19 +57,24 @@ function renderPokemonCardType(currentPokemon) {
 
 
 function searchPokemon() {
-    for (let i = 1; i <= pokemonArray.length; i++) {
-        document.getElementById(`${i}`).classList.remove('d-none')
-    }
-    searchValueName = []
-    let input = document.getElementById('user-search')
-    for (let i = 0; i < pokemonArray.length; i++) {
-        fillSearchValueArray(input, i)
-    }
-    if (searchValueName.length == 0 && input.value.length == 0) { // if search array is empty, show again all pokemon
-        renderAll()
+    if (pokemonArray.length == pokemonAmount) {
+        for (let i = 1; i <= pokemonArray.length; i++) {
+            document.getElementById(`${i}`).classList.remove('d-none')
+        }
+        searchValueName = []
+        let input = document.getElementById('user-search')
+        for (let i = 0; i < pokemonArray.length; i++) {
+            fillSearchValueArray(input, i)
+        }
+        if (searchValueName.length == 0 && input.value.length == 0) { // if search array is empty, show again all pokemon
+            renderAll()
+        } else {
+            renderSearch()
+        }
     } else {
-        renderSearch()
-    }
+        console.warn("Warning")
+        // Funktion, die die fehlenden Pokemon hinzufügt
+    } 
 }
 
 
