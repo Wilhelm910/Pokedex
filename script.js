@@ -6,8 +6,6 @@ let searchValueName = []
 
 
 async function init() {
-    console.log(renderedPokemon)
-    console.log(pokemonAmount)
     for (renderedPokemon; renderedPokemon <= pokemonAmount; renderedPokemon++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${renderedPokemon}`
         let response = await fetch(url)
@@ -106,7 +104,6 @@ async function showPokemon(pokemonID) {
 
 
 function highlightPokemon(pokemon) {
-    console.log(pokemon)
     let str = pokemon.name
     let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
     document.getElementById('details-container').innerHTML = renderPokemon(pokemon, strToUpperCase) 
@@ -151,7 +148,6 @@ function changeStatsLeft() {
 
 
 function previousPokemon(pokemonID) {
-    console.log(pokemonID)
     if (pokemonID == 0) {
         pokemonID = pokemonAmount 
         showPokemon(pokemonID)
