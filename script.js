@@ -19,10 +19,12 @@ async function init() {
 }
 
 
-function loadNewPokemon() {
-    renderedPokemon = pokemonAmount + 1
-    pokemonAmount += 20
-    init()
+window.onscroll = function () {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        renderedPokemon = pokemonAmount + 1
+        pokemonAmount += 20
+        init()
+    }
 }
 
 
@@ -106,7 +108,7 @@ async function showPokemon(pokemonID) {
 function highlightPokemon(pokemon) {
     let str = pokemon.name
     let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
-    document.getElementById('details-container').innerHTML = renderPokemon(pokemon, strToUpperCase) 
+    document.getElementById('details-container').innerHTML = renderPokemon(pokemon, strToUpperCase)
     renderPokemonType(pokemon)
     renderPokemonBackgroundColor(pokemon)
     renderPokemonStats(pokemon)
@@ -149,7 +151,7 @@ function changeStatsLeft() {
 
 function previousPokemon(pokemonID) {
     if (pokemonID == 0) {
-        pokemonID = pokemonAmount 
+        pokemonID = pokemonAmount
         showPokemon(pokemonID)
     } else {
         showPokemon(pokemonID)
@@ -184,10 +186,10 @@ function renderPokemonStats(pokemon) {
     }
     let abilitiesContainer = document.getElementById('abilities-container')
     for (let i = 0; i < pokemon.abilities.length; i++) {
-        abilities(abilitiesContainer,i,pokemon)
+        abilities(abilitiesContainer, i, pokemon)
     }
     let generalInfoContainer = document.getElementById('general-info-container')
-    generalInfo(generalInfoContainer,pokemon)
+    generalInfo(generalInfoContainer, pokemon)
 }
 
 function stats(statsContainer, i, pokemon) {
@@ -198,18 +200,18 @@ function stats(statsContainer, i, pokemon) {
 }
 
 
-function abilities(abilitiesContainer,i,pokemon) {
+function abilities(abilitiesContainer, i, pokemon) {
     let str = pokemon.abilities[i].ability.name
     let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
     abilitiesContainer.innerHTML += renderAbilities(strToUpperCase)
 }
 
 
-function generalInfo(generalInfoContainer,pokemon) {
+function generalInfo(generalInfoContainer, pokemon) {
     expBarWidth = (pokemon.base_experience / 400) * 100
     heightBarWidth = (pokemon.height / 30) * 100
     weightBarWidth = (pokemon.weight / 2500) * 100
-    generalInfoContainer.innerHTML += renderGeneralInfo(pokemon) 
+    generalInfoContainer.innerHTML += renderGeneralInfo(pokemon)
 }
 
 
