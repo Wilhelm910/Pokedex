@@ -80,6 +80,17 @@ header {
     font-family: 'Bungee Inline' !important;
 }
 
+.search-bar-container {
+    position: absolute;
+}
+
+.search-bar {
+    position: sticky;
+    top: 8px;
+    z-index: 9;
+    margin-top: 16px;
+}
+
 .title {
     font-size: 128px;
     margin: -100px 32px;
@@ -99,7 +110,7 @@ header {
 #pokedex {
     display: flex;
     flex-wrap: wrap;
-    margin: 16px;
+    margin: 8px;
 }
 
 .pokemon-card {
@@ -111,6 +122,7 @@ header {
     flex-direction: column;
     align-items: center;
     transition: all 175ms ease-in-out;
+    max-width: 500px;
 }
 
 .pokemon-card:hover {
@@ -135,6 +147,7 @@ header {
 
 .pokemon-type-container {
     display: flex;
+    justify-content: center;
 }
 
 .pokemon-img-container {
@@ -168,14 +181,18 @@ header {
 
 .relative {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
 #details-container {
     width: 500px;
-    height: 800px;
+    height: 810px;
     position: sticky;
-    top: 50px;
+    top: 58px;
+    margin-top: 68px;
 }
 
 .pokemon-card-detail {
@@ -186,6 +203,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
 }
 
 .stat-container,
@@ -203,6 +221,12 @@ header {
     width: 200px;
     border-radius: 16px;
     margin-left: 20px;
+}
+
+.abilitie {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 200px;
+    border-radius: 16px;
 }
 
 .stat-bar {
@@ -225,6 +249,17 @@ header {
     transition: all 175ms ease-in-out;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.arrow-container-stats-prev {
+    position: absolute;
+    left: 10px;
+}
+
+.arrow-container-stats-next {
+    position: absolute;
+    right: 10px;
 }
 
 .hover:hover {
@@ -253,8 +288,12 @@ header {
 }
 
 .stats-section {
+    height: 100%;
+    width: 100%;
     display: flex;
-    align-items: center;
+    margin-top: 12px;
+    justify-content: center;
+    position: relative;
 }
 
 .small {
@@ -264,18 +303,13 @@ header {
     margin: 12px !important;
 }
 
-.abilities-container {
-    display: flex;
-    justify-content: center;
-}
-
 
 #user-search {
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
     border: none;
     padding: 12px;
-    font-size: 20px;
+    font-size: 24px;
     border-radius: 8px;
 }
 
@@ -283,16 +317,51 @@ header {
     display: flex;
 }
 
-.absolute {
-    padding: 1px 12px;
+#load-btn {
+    margin: 8px;
+    width: 200px;
+    text-align: center;
+    color: white;
+    font-size: 32px;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.close-btn-container {
+    width: 25px;
+    height: 25px;
+    padding: 10px;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.2);
     font-size: 24px;
-    color:black;
+    color: black;
     position: absolute;
     top: 20px;
     left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.close-btn {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.stats-header {
+    padding: 5px;
+    border-radius: 16px;
+    font-size: 26px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 220px;
+    margin-left: calc(50% - 115px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 @media (max-width: 1100px) {
 
@@ -300,25 +369,21 @@ header {
         flex-direction: column;
     }
 
-    #user-search {
-        margin: 20px 16px 16px 16px;
-    }
-
     .title {
         font-size: 84px;
-        margin: -80px 32px;
+        margin: -80px 32px -60px 32px;
     }
+
 }
 
-@media (max-width: 500px) {
+@media (max-width: 510px) {
     .title {
-        font-size: 64px;
-        margin: -60px 32px;
+        font-size: 54px;
+        margin: -60px 32px -40px 32px;
     }
 
     .img-section {
         flex-direction: column;
-
     }
 
     .arrow-container-pokemon-prev {
@@ -332,17 +397,4 @@ header {
         top: 100px;
         right: 20px;
     }
-
-    .arrow-container-stats-prev {
-        position: absolute;
-        top: 400px;
-        left: 20px;
-    }
-
-    .arrow-container-stats-next {
-        position: absolute;
-        top: 400px;
-        right: 20px;
-    }
-
 }

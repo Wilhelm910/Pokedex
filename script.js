@@ -1,40 +1,30 @@
-
 let currentPokemon
 let pokemonArray = []
-let pokemonAmount = 26
+let pokemonAmount = 21
 let renderedPokemon = 1
-let totalPokemonsShown = 150 //150
-let searchValue = []
+let searchValueName = []
 
 
-// fill pokemonArray step by step with names to load 25 pokemon at a time
 async function init() {
-    for (let i = 1; i <= pokemonAmount; i++) {
-        let url = `https://pokeapi.co/api/v2/pokemon/${i}`
-        let response = await fetch(url)
-        let responseToJson = await response.json()
-        let pokemonNames = responseToJson
-        if (!pokemonArray.includes(pokemonNames.name)) {
-            pokemonArray.push(pokemonNames.name)
-        }
-    }
-    if (pokemonAmount < totalPokemonsShown) {
-        pokemonAmount += 25
-        init()
-    }
-    cyclePokemonArray()
-}
-
-
-// cycle through array and render pokemon
-async function cyclePokemonArray() {
-    for (renderedPokemon; renderedPokemon <= pokemonArray.length; renderedPokemon++) {
+    console.log(renderedPokemon)
+    console.log(pokemonAmount)
+    for (renderedPokemon; renderedPokemon <= pokemonAmount; renderedPokemon++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${renderedPokemon}`
         let response = await fetch(url)
         let responseToJson = await response.json()
         currentPokemon = responseToJson
+        if (!pokemonArray.includes(currentPokemon.name)) {
+            pokemonArray.push(currentPokemon.name)
+        }
         render(currentPokemon)
     }
+}
+
+
+function loadNewPokemon() {
+    renderedPokemon = pokemonAmount + 1
+    pokemonAmount += 20
+    init()
 }
 
 
@@ -48,16 +38,59 @@ function render(currentPokemon) {
 function pokemonCardNameAndImg(currentPokemon) {
     let str = currentPokemon.name
     let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
-    document.getElementById('pokedex').innerHTML += renderPokemonCardNameAndImg(currentPokemon, strToUpperCase) 
+    document.getElementById('pokedex').innerHTML += renderPokemonCardNameAndImg(currentPokemon, strToUpperCase)
 }
 
 
 function renderPokemonCardType(currentPokemon) {
     let type = document.getElementById(`type-${currentPokemon.id}`)
     for (let i = 0; i < currentPokemon.types.length; i++) {
-        type.innerHTML += /*html*/ `
+        type.innerHTML += `
         <div class="pokemon-type">${currentPokemon.types[i].type.name}</div>
          `
+    }
+}
+
+
+function searchPokemon() {
+    for (let i = 1; i <= pokemonArray.length; i++) {
+        document.getElementById(`${i}`).classList.remove('d-none')
+    }
+    searchValueName = []
+    let input = document.getElementById('user-search')
+    for (let i = 0; i < pokemonArray.length; i++) {
+        fillSearchValueArray(input, i)
+    }
+    if (searchValueName.length == 0 && input.value.length == 0) { // if search array is empty, show again all pokemon
+        renderAll()
+    } else {
+        renderSearch()
+    }
+}
+
+
+function fillSearchValueArray(input, i) {
+    if (pokemonArray[i].toLowerCase().includes(input.value.toLowerCase())) {
+        if (input.value.length > 0) {
+            searchValueName.push(pokemonArray[i])
+        }
+    }
+}
+
+
+function renderSearch() {
+    for (let i = 1; i <= pokemonArray.length; i++) {
+        let pokemon = pokemonArray[i - 1];
+        if (!searchValueName.includes(pokemon)) {
+            document.getElementById(`${i}`).classList.add('d-none')
+        }
+    }
+}
+
+
+function renderAll() {
+    for (let i = 1; i <= pokemonArray.length; i++) {
+        document.getElementById(`${i}`).classList.remove('d-none')
     }
 }
 
@@ -120,7 +153,7 @@ function changeStatsLeft() {
 function previousPokemon(pokemonID) {
     console.log(pokemonID)
     if (pokemonID == 0) {
-        pokemonID = totalPokemonsShown + 1
+        pokemonID = pokemonAmount 
         showPokemon(pokemonID)
     } else {
         showPokemon(pokemonID)
@@ -129,7 +162,7 @@ function previousPokemon(pokemonID) {
 
 
 function nextPokemon(pokemonID) {
-    if (pokemonID == totalPokemonsShown + 2) {
+    if (pokemonID == pokemonAmount + 1) {
         pokemonID = 1
         showPokemon(pokemonID)
     } else {
@@ -141,7 +174,7 @@ function nextPokemon(pokemonID) {
 function renderPokemonType(pokemon) {
     let type = document.getElementById(`detailed-pokemon-type-${pokemon.id}`)
     for (let i = 0; i < pokemon.types.length; i++) {
-        type.innerHTML += /*html*/ `
+        type.innerHTML += `
         <div class="pokemon-type">${pokemon.types[i].type.name}</div>
          `
     }
@@ -151,26 +184,37 @@ function renderPokemonType(pokemon) {
 function renderPokemonStats(pokemon) {
     let statsContainer = document.getElementById('stats-container')
     for (let i = 0; i < pokemon.stats.length; i++) {
-        let str = pokemon.stats[i].stat.name
-        let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
-        statBarWidth = (pokemon.stats[i].base_stat / 200) * 100
-        statsContainer.innerHTML += renderStats(pokemon, strToUpperCase, i)
+        stats(statsContainer, i, pokemon)
     }
     let abilitiesContainer = document.getElementById('abilities-container')
     for (let i = 0; i < pokemon.abilities.length; i++) {
-        let str = pokemon.abilities[i].ability.name
-        let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
-        abilitiesContainer.innerHTML += renderAbilities(strToUpperCase)
-    
+        abilities(abilitiesContainer,i,pokemon)
     }
     let generalInfoContainer = document.getElementById('general-info-container')
-    expBarWidth = (pokemon.base_experience / 400) * 100
-    heightBarWidth = (pokemon.height / 25) * 100
-    weightBarWidth = (pokemon.weight / 1100) * 100
-    generalInfoContainer.innerHTML += renderGeneralInfo(pokemon) 
-   
+    generalInfo(generalInfoContainer,pokemon)
 }
 
+function stats(statsContainer, i, pokemon) {
+    let str = pokemon.stats[i].stat.name
+    let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
+    statBarWidth = (pokemon.stats[i].base_stat / 200) * 100
+    statsContainer.innerHTML += renderStats(pokemon, strToUpperCase, i)
+}
+
+
+function abilities(abilitiesContainer,i,pokemon) {
+    let str = pokemon.abilities[i].ability.name
+    let strToUpperCase = str.charAt(0).toUpperCase() + str.slice(1)
+    abilitiesContainer.innerHTML += renderAbilities(strToUpperCase)
+}
+
+
+function generalInfo(generalInfoContainer,pokemon) {
+    expBarWidth = (pokemon.base_experience / 400) * 100
+    heightBarWidth = (pokemon.height / 30) * 100
+    weightBarWidth = (pokemon.weight / 2500) * 100
+    generalInfoContainer.innerHTML += renderGeneralInfo(pokemon) 
+}
 
 
 function hideDetails() {
@@ -180,46 +224,4 @@ function hideDetails() {
 
 function dontClose(event) {
     event.stopPropagation()
-}
-
-
-function searchPokemon() {
-    searchValue = []
-    let input = document.getElementById('user-search')
-    for (let i = 0; i < pokemonArray.length; i++) {
-        fillSearchValueArray(input,i)
-    }
-    if (searchValue.length == 0) { // if search array is empty, show again all pokemon
-        document.getElementById('pokedex').innerHTML = ''
-        renderedPokemon = 1
-        init()
-    } else {
-        renderSearch()
-    }
-}
-
-
-function fillSearchValueArray(input,i) {
-    if (pokemonArray[i].toLowerCase().includes(input.value.toLowerCase())) {
-        if (input.value.length > 0) {
-        searchValue.push(pokemonArray[i])
-        }
-    }
-}
-
-
-async function renderSearch() {
-    console.log(searchValue)
-    if (searchValue.length > 0) {
-        console.log("test")
-        document.getElementById('pokedex').innerHTML = ''
-    }
-    for (let i = 0; i < searchValue.length; i++) {
-        let url = `https://pokeapi.co/api/v2/pokemon/${searchValue[i]}`
-        let response = await fetch(url)
-        let responseToJson = await response.json()
-        let pokemonNames = responseToJson
-        currentPokemon = pokemonNames
-        render(currentPokemon)
-    }
 }

@@ -20,24 +20,26 @@
         <div>
             <p class="title">Pokedex</p>
         </div>
-        <div>
-            <input onkeyup="searchPokemon()" id="user-search" type="text" placeholder="Search ...">
-        </div>
+
     </header>
-   
     <div class="relative">
         <div onclick="hideDetails()" class=" d-none" id="overlay">
             <div onclick="dontClose(event)" id="details-container"></div>
         </div>
+        <div class="search-bar">
+            <input onkeyup="searchPokemon()" id="user-search" type="text" placeholder="Search ...">
+        </div>
         <div id="pokedex"></div>
+        <div onclick="loadNewPokemon()" id="load-btn" class="hover">Show more ...</div>
     </div>
-    
-        
-    </div>
-<footer>
-    <div><a href="https://www.flaticon.com/de/kostenlose-icons/nachster" title="nachster Icons">Nachster Icons erstellt von Kiranshastry - Flaticon</a>
-    </div>
-</footer>
+    <footer>
+        <div>
+            <a href="https://www.flaticon.com/free-icons/next" title="next icons">Next icons created by Jesus Chavarria
+                - Flaticon</a>
+            <a href="https://www.flaticon.com/de/kostenlose-icons/x" title="x Icons">X Icons erstellt von Stockio -
+                Flaticon</a>
+        </div>
+    </footer>
 </body>
 
 </html>
