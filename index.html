@@ -27,7 +27,8 @@
             <div onclick="dontClose(event)" id="details-container"></div>
         </div>
         <div class="search-bar">
-            <input onkeyup="searchPokemon()" id="user-search" type="text" placeholder="Search ...">
+            <input onkeyup="searchPokemon()" id="user-search" type="text" onkeypress="return (event.charCode > 64 && 
+            event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" placeholder="Search ...">
         </div>
         <div id="pokedex"></div>
     </div>

@@ -7,6 +7,8 @@ let searchValueName = []
 
 async function init() {
     for (renderedPokemon; renderedPokemon <= pokemonAmount; renderedPokemon++) {
+       // console.log(renderedPokemon)
+       // console.log(pokemonAmount)
         let url = `https://pokeapi.co/api/v2/pokemon/${renderedPokemon}`
         let response = await fetch(url)
         let responseToJson = await response.json()
@@ -18,19 +20,56 @@ async function init() {
     }
 }
 
+/*
+let scrolling = false;
 
+window.scroll = () => {
+    scrolling = true;
+};
+
+setInterval(() => {
+    if (scrolling) {
+        scrolling = false;
+        // place the scroll handling logic here
+    }
+},300);
+*/
 window.onscroll = function () {
-    console.log(searchValueName.length)
-    if (searchValueName.length == 0) {
+    let nodeList = document.querySelectorAll('.pokemon-card')
+    if (searchValueName.length == 0 && nodeList.length == pokemonAmount) {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
             renderedPokemon = pokemonAmount + 1
-            pokemonAmount += 5
+            pokemonAmount += 10
             init()
         }
-    }
-
+    } 
 }
-
+/*
+function timer() {
+    setTimeout(searchPokemon,1000)
+}
+*/
+/*
+window.onscroll = function () {
+    let element
+    for (let i = 1; i <= pokemonArray.length; i++) {
+        element = document.getElementById(`${i}`)
+    }
+    if (element) {
+        console.log(element.id)
+        console.log(pokemonArray.length)
+        if (searchValueName.length == 0) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                renderedPokemon = pokemonAmount + 1
+                pokemonAmount += 5
+                init()
+            }
+        }
+    } else {
+        console.log("fehler")
+    }
+}
+*/
 
 function render(currentPokemon) {
     pokemonCardNameAndImg(currentPokemon)
@@ -73,8 +112,7 @@ function searchPokemon() {
         }
     } else {
         console.warn("Warning")
-        // Funktion, die die fehlenden Pokemon hinzufügt
-    } 
+    }
 }
 
 
