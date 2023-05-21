@@ -3,6 +3,7 @@ let pokemonArray = []
 let pokemonAmount = 21
 let renderedPokemon = 1
 let searchValueName = []
+let loading = false;
 
 
 async function init() {
@@ -37,10 +38,15 @@ setInterval(() => {
 window.onscroll = function () {
     let nodeList = document.querySelectorAll('.pokemon-card')
     if (searchValueName.length == 0 && nodeList.length == pokemonAmount) {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            renderedPokemon = pokemonAmount + 1
-            pokemonAmount += 10
-            init()
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !loading) {
+            console.log(loading)
+            loading = true;
+            renderedPokemon = pokemonAmount + 1;
+            pokemonAmount += 10;
+            setTimeout(() => {
+                loading = false;
+            }, 3000);
+            init();
         }
     } 
 }
