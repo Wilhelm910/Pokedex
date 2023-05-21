@@ -38,7 +38,7 @@ setInterval(() => {
 window.onscroll = function () {
     let nodeList = document.querySelectorAll('.pokemon-card')
     if (searchValueName.length == 0 && nodeList.length == pokemonAmount) {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !loading) {
+        if ((window.innerHeight + window.scrollY + 5) >= document.body.offsetHeight && !loading) {
             console.log(loading)
             loading = true;
             renderedPokemon = pokemonAmount + 1;
