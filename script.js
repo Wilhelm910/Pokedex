@@ -30,7 +30,7 @@ window.onscroll = function () {
             pokemonAmount += 10;
             setTimeout(() => {
                 loading = false;
-            }, 3000);
+            }, 2000);
             init();
         }
     } 
