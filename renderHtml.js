@@ -5,7 +5,7 @@ function renderPokemonCardNameAndImg(currentPokemon, strToUpperCase) {
             <b>${strToUpperCase}</b>
         </div>
         <div class="pokemon-img-container">
-            <img class="pokemon-img" src="${currentPokemon.sprites.other.dream_world.front_default}">
+            <img class="pokemon-img" src="${currentPokemon.sprites.other.dream_world.front_default}" alt="${strToUpperCase}">
         </div>
         <div class="pokemon-type-container" id="type-${currentPokemon.id}"></div>
     </div>
